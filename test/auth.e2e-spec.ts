@@ -38,13 +38,14 @@ describe('Authentication System', () => {
             .send({ email, password: 'asdasd' })
             .expect(201)
 
-        const cookies = res.get('Set-Cookie')[0];
-        expect(cookies).toBeDefined();
-        const cookieHeader = cookies ? cookies[0] : ''
+        const cookie = res.get('Set-Cookie');
+        if (!cookie) {
+            throw new Error('No cookie found');
+        }
 
         const { body } = await request(app.getHttpServer())
             .get('/auth/whoami')
-            .set('Cookie', cookieHeader)
+            .set('Cookie', cookie)
             .expect(200);
 
         expect(body.email).toEqual(email);
