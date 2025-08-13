@@ -10,4 +10,15 @@ Content-Type: application/json
     "lng": 0,
     "lat": 0,
     "price": 20000
+} 
+
+### Change approval status of a report
+PATCH http://localhost:3000/reports/3
+Content-Type: application/json
+
+{
+    "approved": true
 }
+
+### Get an estimate for an existing vehicle
+GET http://localhost:3000/reports?make=Toyota&model=Corolla&year=2020&mileage=15000&lng=0&lat=0
